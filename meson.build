@@ -1,5 +1,21 @@
-project('gst-plugins-base', 'c', 'cpp',
+project('gst-plugins-base', 'c', 'cpp', version : '1.4.5',
   default_options : ['warning_level=1', 'c_std=gnu99'])
+
+
+
+cdata = configuration_data()
+cdata.set('GETTEXT_PACKAGE', '"foobar"')
+cdata.set('PACKAGE', '"fff"')
+cdata.set('VERSION', '"fff"')
+cdata.set('GST_PACKAGE_NAME', '"fff"')
+cdata.set('GST_PACKAGE_ORIGIN', '"fff"')
+cdata.set('GST_API_VERSION', '"@0@"'.format(meson.project_version()))
+
+configure_file(input : 'config.h.meson',
+  output : 'config.h',
+  configuration : cdata)
+
+core_args = ['-DHAVE_CONFIG_H']
 
 libm = find_library('m', required : false)
 alsa_dep = dependency('alsa', version : '>=0.9.1')
@@ -15,7 +31,7 @@ giounix_dep = dependency('gio-unix-2.0', version : '>=2.24')
 ft2_dep = dependency('freetype2', version : '>=2.0.9', required : false)
 glib_dep = dependency('glib-2.0')
 
-gstlib_inc = include_directories('gst-libs')
+core_inc = include_directories('gst-libs', '.')
 
 mkenums = find_program('build_mkenum.py')
 

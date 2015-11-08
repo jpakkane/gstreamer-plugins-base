@@ -61,13 +61,8 @@ configure_file(input : 'gstaudiopack-dist.h',
   output : 'gstaudiopack.h',
   configuration : cdata)
 
-
 gstaudio = library('gstaudio',
   audio_src, gstaudio_h, gstaudio_c,
-  include_directories : gstlib_inc,
-  c_args: ['-DGETTEXT_PACKAGE="foobar"',
-    '-DPACKAGE="fff"',
-    '-DVERSION="fff"',
-    '-DGST_PACKAGE_NAME="fff"',
-    '-DGST_PACKAGE_ORIGIN="fff"',],
+  include_directories : core_inc,
+  c_args: core_args,
   dependencies : [gst_dep, glib_dep])
