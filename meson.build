@@ -80,8 +80,6 @@ configure_file(input : 'config.h.meson',
 
 core_inc = include_directories('gst-libs', '.')
 
-mkenums = find_program('build_mkenum.py')
-
 # To use the subproject make subprojects directory
 # and put gstreamer meson git there (symlinking is fine)
 gst_dep = dependency('gstreamer-1.0')

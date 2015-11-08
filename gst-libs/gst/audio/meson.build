@@ -46,6 +46,7 @@ audio_mkenum_headers = [
   'gstaudioringbuffer.h',
 ]
 
+mkenums = find_program('audio_mkenum.py')
 gstaudio_h = custom_target('gstaudioenum_h',
   output : 'audio-enumtypes.h',
   input : audio_mkenum_headers,
