@@ -67,3 +67,7 @@ gstaudio = library('gstaudio-@0@'.format(api_version),
   include_directories : core_inc,
   c_args: core_args,
   dependencies : [gst_dep, glib_dep])
+
+audio_dep = declare_dependency(link_with : gstaudio,
+  sources : [gstaudio_h]
+)

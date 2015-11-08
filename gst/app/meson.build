@@ -1,7 +1,3 @@
-#configure_file(input : 'gstadderorc-dist.h',
-#  output : 'gstadderorc.h',
-#  configuration : configuration_data())
-
 adder = library('gstapp',
   'gstapp.c',
   include_directories : core_inc,
