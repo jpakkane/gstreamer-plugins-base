@@ -1,6 +1,12 @@
 project('gst-plugins-base', 'c', 'cpp', version : '1.4.5',
   default_options : ['warning_level=1', 'c_std=gnu99'])
 
+varr = meson.project_version().split('.')
+version_major = varr[0]
+version_minor = varr[1]
+version_micro = varr[2]
+version_nano = 1
+
 cc = meson.get_compiler('c')
 
 cdata = configuration_data()
@@ -53,6 +59,8 @@ cdata.set('VERSION', '"fff"')
 cdata.set('GST_PACKAGE_NAME', '"fff"')
 cdata.set('GST_PACKAGE_ORIGIN', '"fff"')
 cdata.set('GST_API_VERSION', '"@0@"'.format(meson.project_version()))
+cdata.set('GST_INSTALL_PLUGINS_HELPER', '"/FIXME"')
+cdata.set('GST_DATADIR', '"/FIXME"')
 
 core_args = ['-DHAVE_CONFIG_H']
 
