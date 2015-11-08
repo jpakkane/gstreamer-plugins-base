@@ -6,6 +6,7 @@ version_major = varr[0]
 version_minor = varr[1]
 version_micro = varr[2]
 version_nano = 1
+api_version = '1.0'
 
 cc = meson.get_compiler('c')
 
@@ -61,6 +62,7 @@ cdata.set('GST_PACKAGE_ORIGIN', '"fff"')
 cdata.set('GST_API_VERSION', '"@0@"'.format(meson.project_version()))
 cdata.set('GST_INSTALL_PLUGINS_HELPER', '"/FIXME"')
 cdata.set('GST_DATADIR', '"/FIXME"')
+cdata.set('GST_LICENSE', '"FIXME"')
 
 core_args = ['-DHAVE_CONFIG_H']
 

@@ -1,5 +1,5 @@
 subdir('adder')
-# subdir('app')
+subdir('app')
 # subdir('audioconvert')
 # subdir('audiorate')
 # subdir('audioresample')

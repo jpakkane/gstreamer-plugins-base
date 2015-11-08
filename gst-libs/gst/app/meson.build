@@ -14,7 +14,7 @@ marshal_src = custom_target('app_marshal_c',
 )
 
 
-gstapp = library('gstapp',
+gstapp = library('gstapp-@0@'.format(api_version),
   app_sources, marshal_src, marshal_header,
   c_args : core_args,
   include_directories : core_inc,

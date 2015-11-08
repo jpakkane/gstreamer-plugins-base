@@ -62,7 +62,7 @@ configure_file(input : 'gstaudiopack-dist.h',
   output : 'gstaudiopack.h',
   configuration : cdata)
 
-gstaudio = library('gstaudio',
+gstaudio = library('gstaudio-@0@'.format(api_version),
   audio_src, gstaudio_h, gstaudio_c,
   include_directories : core_inc,
   c_args: core_args,
