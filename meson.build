@@ -63,6 +63,7 @@ cdata.set('GST_API_VERSION', '"@0@"'.format(meson.project_version()))
 cdata.set('GST_INSTALL_PLUGINS_HELPER', '"/FIXME"')
 cdata.set('GST_DATADIR', '"/FIXME"')
 cdata.set('GST_LICENSE', '"FIXME"')
+cdata.set('DISABLE_ORC', 1)
 
 core_args = ['-DHAVE_CONFIG_H']
 
