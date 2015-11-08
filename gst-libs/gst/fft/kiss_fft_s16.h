@@ -26,7 +26,11 @@ extern "C" {
 
 #define KISS_FFT_S16_MALLOC g_malloc
 
-#include "_stdint.h"
+#if HAVE_STDINT_h
+#include<stdint.h>
+#else
+#include "stdint.h"
+#endif
 
 #define kiss_fft_s16_scalar int16_t
 

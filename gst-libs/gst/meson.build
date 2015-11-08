@@ -1,5 +1,5 @@
 subdir('tag')
-#subdir('fft')
+subdir('fft')
 #subdir('rtp')
 #subdir('sdp')
 #subdir('rtsp')
