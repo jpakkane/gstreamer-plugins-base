@@ -8,26 +8,26 @@
 import sys, os, subprocess
 
 h_array = ['--fhead',
-           "#ifndef __GST_ENUM_TYPES_H__\n#define __GST_ENUM_TYPES_H__\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n",
+           "#ifndef __GST_AUDIO_ENUM_TYPES_H__\n#define __GST_AUDIO_ENUM_TYPES_H__\n\n#include <glib-object.h>\n\nG_BEGIN_DECLS\n",
            '--fprod',
            "\n/* enumerations from \"@filename@\" */\n",
            '--vhead',
-           "GType @enum_name@_get_type (void);\n#define GST_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n",
+           'GType @enum_name@_get_type (void);\n#define GST_TYPE_@ENUMSHORT@ (@enum_name@_get_type())\n',
            '--ftail',
-           "G_END_DECLS\n\n#endif /* __GST_ENUM_TYPES_H__ */"]
+           'G_END_DECLS\n\n#endif /* __GST_AUDIO_ENUM_TYPES_H__ */',
+           ]
 
-c_array = [
-    '--fhead',
-    "#include \"gst_private.h\"\n#include <gst/gst.h>\n#define C_ENUM(v) ((gint) v)\n#define C_FLAGS(v) ((guint) v)\n ",
-    '--fprod',
-    "\n/* enumerations from \"@filename@\" */",
-    '--vhead',
-    "GType\n@enum_name@_get_type (void)\n{\n  static gsize id = 0;\n  static const G@Type@Value values[] = {",
-    '--vprod',
-    "    { C_@TYPE@(@VALUENAME@), \"@VALUENAME@\", \"@valuenick@\" },",
-    '--vtail',
-    "    { 0, NULL, NULL }\n  };\n\n  if (g_once_init_enter (&id)) {\n    GType tmp = g_@type@_register_static (\"@EnumName@\", values);\n    g_once_init_leave (&id, tmp);\n  }\n\n  return (GType) id;\n}"
-    ]
+c_array = ['--fhead',
+           "#include \"audio-enumtypes.h\"\n\n#include \"audio.h\" \n#include \"audio-format.h\" \n#include \"audio-channels.h\" \n#include \"audio-info.h\" \n#include \"gstaudioringbuffer.h\"",
+           '--fprod',
+           "\n/* enumerations from \"@filename@\" */",
+           '--vhead',
+           "GType\n@enum_name@_get_type (void)\n{\n  static volatile gsize g_define_type_id__volatile = 0;\n  if (g_once_init_enter (&g_define_type_id__volatile)) {\n    static const G@Type@Value values[] = {",
+           '--vprod',
+           "      { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" },",
+           '--vtail',
+           "      { 0, NULL, NULL }\n    };\n    GType g_define_type_id = g_@type@_register_static (\"@EnumName@\", values);\n    g_once_init_leave (&g_define_type_id__volatile, g_define_type_id);\n  }\n  return g_define_type_id__volatile;\n}\n",
+           ]
 
 ofilename = sys.argv[1]
 headers = sys.argv[2:]
@@ -37,7 +37,11 @@ if ofilename.endswith('.h'):
 else:
     arg_array = c_array
 
-pc = subprocess.Popen(['glib-mkenums'] + arg_array + headers, stdout=subprocess.PIPE)
+cmd_array = ['glib-mkenums'] + arg_array + headers
+
+#print(cmd_array)
+
+pc = subprocess.Popen(cmd_array, stdout=subprocess.PIPE)
 (stdo, _) = pc.communicate()
 if pc.returncode != 0:
     sys.exit(pc.returncode)

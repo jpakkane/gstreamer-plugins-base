@@ -36,22 +36,33 @@ audio_headers = [
   'gstaudioringbuffer.h',
   'gstaudiosink.h',
   'gstaudiosrc.h',
-  'gstaudioutilsprivate.h',
   'streamvolume.h',
+]
+
+audio_mkenum_headers = [
+  'audio-format.h',
+  'audio-channels.h',
+  'audio-info.h',
+  'gstaudioringbuffer.h',
 ]
 
 gstaudio_h = custom_target('gstaudioenum_h',
   output : 'audio-enumtypes.h',
-  input : audio_headers,
+  input : audio_mkenum_headers,
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
 gstaudio_c = custom_target('gstaudioenum_c',
   output : 'audio-enumtypes.c',
-  input : audio_headers,
+  input : audio_mkenum_headers,
   command : [mkenums, '@OUTPUT@', '@INPUT@'])
 
+cdata = configuration_data()
+configure_file(input : 'gstaudiopack-dist.h',
+  output : 'gstaudiopack.h',
+  configuration : cdata)
 
-gstaudio = shared_library('gstaudio',
+
+gstaudio = library('gstaudio',
   audio_src, gstaudio_h, gstaudio_c,
   include_directories : gstlib_inc,
   c_args: ['-DGETTEXT_PACKAGE="foobar"',
