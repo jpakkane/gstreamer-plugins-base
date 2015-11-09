@@ -43,9 +43,11 @@ gstvideo_c = custom_target('gstvideoenum_c',
 
 
 gstvideo = library('gstvideo',
-  video_sources,
+  video_sources, gstvideo_h, gstvideo_c,
   c_args : core_args,
   include_directories : core_inc,
   dependencies : [gst_dep, glib_dep],
 )
 
+video_dep = declare_dependency(link_with : gstvideo,
+  sources : gstvideo_h)

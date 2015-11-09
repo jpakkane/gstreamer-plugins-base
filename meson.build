@@ -64,6 +64,10 @@ cdata.set('GST_INSTALL_PLUGINS_HELPER', '"/FIXME"')
 cdata.set('GST_DATADIR', '"/FIXME"')
 cdata.set('GST_LICENSE', '"FIXME"')
 cdata.set('DISABLE_ORC', 1)
+cdata.set('GIO_MODULE_DIR', '"FIXME"')
+cdata.set('GIO_LIBDIR', '"FIXME"')
+cdata.set('DEFAULT_VIDEOSINK', '"FIXME"')
+cdata.set('DEFAULT_AUDIOSINK', '"FIXME"')
 
 core_args = ['-DHAVE_CONFIG_H']
 
