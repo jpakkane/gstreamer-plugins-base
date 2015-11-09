@@ -8,5 +8,5 @@ gstriff = library('gstriff',
   riff_sources,
   c_args : core_args,
   include_directories : core_inc,
-  dependencies : [gst_dep, glib_dep],
+  dependencies : [audio_dep, gst_dep, glib_dep],
 )

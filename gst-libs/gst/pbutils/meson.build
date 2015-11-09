@@ -42,3 +42,6 @@ pbutils = library('gstpbutils',
   dependencies : [gst_dep, glib_dep]
 )
 
+pbutils_dep = declare_dependency(link_with : pbutils,
+  sources : [gstpbutils_h])
+
