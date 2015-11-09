@@ -12,7 +12,7 @@ subdir('tcp')
 subdir('typefind')
 subdir('videoconvert')
 subdir('videorate')
-# subdir('videoscale')
+subdir('videoscale')
 # subdir('videotestsrc')
 # subdir('volume')
 

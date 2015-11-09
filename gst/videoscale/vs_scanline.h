@@ -28,7 +28,11 @@
 #ifndef __VS_SCANLINE_H__
 #define __VS_SCANLINE_H__
 
+#if HAVE_STDINT_H
+#include<stdint.h>
+#else
 #include <_stdint.h>
+#endif
 #include <glib.h>
 
 G_GNUC_INTERNAL void vs_scanline_downsample_Y (uint8_t *dest, uint8_t *src, int n);

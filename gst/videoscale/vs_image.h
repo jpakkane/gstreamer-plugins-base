@@ -29,8 +29,12 @@
 #define __VS_IMAGE_H__
 
 #include <glib.h>
+#if HAVE_STDINT_H
+#include<stdint.h>
+#else
 #include <_stdint.h>
-
+#endif
+    
 typedef struct _VSImage VSImage;
 
 struct _VSImage {

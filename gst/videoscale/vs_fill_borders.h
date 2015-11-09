@@ -28,7 +28,11 @@
 #ifndef __VS_FILL_BORDERS_H__
 #define __VS_FILL_BORDERS_H__
 
+#if HAVE_STDINT_H
+#include<stdint.h>
+#else
 #include <_stdint.h>
+#endif
 #include "vs_image.h"
 
 G_GNUC_INTERNAL void vs_fill_borders_RGBA   (const VSImage *dest, const uint8_t *val);
