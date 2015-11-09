@@ -13,6 +13,6 @@ subdir('typefind')
 subdir('videoconvert')
 subdir('videorate')
 subdir('videoscale')
-# subdir('videotestsrc')
-# subdir('volume')
+subdir('videotestsrc')
+subdir('volume')
 
