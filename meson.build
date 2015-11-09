@@ -10,7 +10,7 @@ api_version = '1.0'
 
 cc = meson.get_compiler('c')
 
-cdata = configuration_data()
+core_conf = configuration_data()
 check_headers = [
   ['HAVE_DLFCN_H', 'dlfcn.h'],
   ['HAVE_EMMINTRIN_H', 'emmintrin.h'],
@@ -31,7 +31,7 @@ check_headers = [
 ]
 foreach h : check_headers
   if cc.has_header(h.get(1))
-    cdata.set(h.get(0), 1)
+    core_conf.set(h.get(0), 1)
   endif
 endforeach
 
@@ -44,30 +44,30 @@ check_functions = [
 
 foreach f : check_functions
   if cc.has_function(f.get(1), prefix : f.get(2))
-    cdata.set(f.get(0), 1)
+    core_conf.set(f.get(0), 1)
   endif
 endforeach
 
-cdata.set('SIZEOF_CHAR', cc.sizeof('char'))
-cdata.set('SIZEOF_INT', cc.sizeof('int'))
-cdata.set('SIZEOF_LONG', cc.sizeof('long'))
-cdata.set('SIZEOF_SHORT', cc.sizeof('short'))
-cdata.set('SIZEOF_VOIDP', cc.sizeof('void*'))
+core_conf.set('SIZEOF_CHAR', cc.sizeof('char'))
+core_conf.set('SIZEOF_INT', cc.sizeof('int'))
+core_conf.set('SIZEOF_LONG', cc.sizeof('long'))
+core_conf.set('SIZEOF_SHORT', cc.sizeof('short'))
+core_conf.set('SIZEOF_VOIDP', cc.sizeof('void*'))
 
-cdata.set('GETTEXT_PACKAGE', '"foobar"')
-cdata.set('PACKAGE', '"fff"')
-cdata.set('VERSION', '"fff"')
-cdata.set('GST_PACKAGE_NAME', '"fff"')
-cdata.set('GST_PACKAGE_ORIGIN', '"fff"')
-cdata.set('GST_API_VERSION', '"@0@"'.format(meson.project_version()))
-cdata.set('GST_INSTALL_PLUGINS_HELPER', '"/FIXME"')
-cdata.set('GST_DATADIR', '"/FIXME"')
-cdata.set('GST_LICENSE', '"FIXME"')
-cdata.set('DISABLE_ORC', 1)
-cdata.set('GIO_MODULE_DIR', '"FIXME"')
-cdata.set('GIO_LIBDIR', '"FIXME"')
-cdata.set('DEFAULT_VIDEOSINK', '"FIXME"')
-cdata.set('DEFAULT_AUDIOSINK', '"FIXME"')
+core_conf.set('GETTEXT_PACKAGE', '"foobar"')
+core_conf.set('PACKAGE', '"fff"')
+core_conf.set('VERSION', '"fff"')
+core_conf.set('GST_PACKAGE_NAME', '"fff"')
+core_conf.set('GST_PACKAGE_ORIGIN', '"fff"')
+core_conf.set('GST_API_VERSION', '"@0@"'.format(meson.project_version()))
+core_conf.set('GST_INSTALL_PLUGINS_HELPER', '"/FIXME"')
+core_conf.set('GST_DATADIR', '"/FIXME"')
+core_conf.set('GST_LICENSE', '"FIXME"')
+core_conf.set('DISABLE_ORC', 1)
+core_conf.set('GIO_MODULE_DIR', '"FIXME"')
+core_conf.set('GIO_LIBDIR', '"FIXME"')
+core_conf.set('DEFAULT_VIDEOSINK', '"FIXME"')
+core_conf.set('DEFAULT_AUDIOSINK', '"FIXME"')
 
 core_args = ['-DHAVE_CONFIG_H']
 
@@ -85,13 +85,13 @@ giounix_dep = dependency('gio-unix-2.0', version : '>=2.24')
 ft2_dep = dependency('freetype2', version : '>=2.0.9', required : false)
 glib_dep = dependency('glib-2.0')
 
-cdata.set('HAVE_GIO_UNIX_2_0', giounix_dep.found())
-cdata.set('HAVE_OGG', ogg_dep.found())
-cdata.set('HAVE_THEORA', theora_dep.found())
+core_conf.set('HAVE_GIO_UNIX_2_0', giounix_dep.found())
+core_conf.set('HAVE_OGG', ogg_dep.found())
+core_conf.set('HAVE_THEORA', theora_dep.found())
 
 configure_file(input : 'config.h.meson',
   output : 'config.h',
-  configuration : cdata)
+  configuration : core_conf)
 
 core_inc = include_directories('gst-libs', '.')
 
