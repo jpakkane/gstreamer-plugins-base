@@ -62,11 +62,15 @@ configure_file(input : 'gstaudiopack-dist.h',
   output : 'gstaudiopack.h',
   configuration : cdata)
 
+audio_orc_c = configure_file(input : 'gstaudiopack-dist.c',
+  output : 'gstaudiopack.c',
+  configuration : cdata)
+
 gstaudio = library('gstaudio-@0@'.format(api_version),
-  audio_src, gstaudio_h, gstaudio_c,
+  audio_src, gstaudio_h, gstaudio_c, audio_orc_c,
   include_directories : core_inc,
   c_args: core_args,
-  dependencies : [gst_dep, glib_dep])
+  dependencies : [gst_dep, gst_base_dep, glib_dep])
 
 audio_dep = declare_dependency(link_with : gstaudio,
   sources : [gstaudio_h]

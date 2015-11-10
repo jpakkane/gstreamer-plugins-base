@@ -30,6 +30,10 @@ configure_file(input : 'video-orc-dist.h',
   output : 'video-orc.h',
   configuration : configuration_data())
 
+video_orc_c = configure_file(input : 'video-orc-dist.c',
+  output : 'video-orc.c',
+  configuration : configuration_data())
+
 mkenums = find_program('video_mkenum.py')
 gstvideo_h = custom_target('gstvideoenum_h',
   output : 'video-enumtypes.h',
@@ -43,7 +47,7 @@ gstvideo_c = custom_target('gstvideoenum_c',
 
 
 gstvideo = library('gstvideo',
-  video_sources, gstvideo_h, gstvideo_c,
+  video_sources, gstvideo_h, gstvideo_c, video_orc_c,
   c_args : core_args,
   include_directories : core_inc,
   dependencies : [gst_dep, glib_dep],
