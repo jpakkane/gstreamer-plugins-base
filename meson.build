@@ -103,3 +103,4 @@ gst_dep = dependency('gstreamer-1.0')
 
 subdir('gst-libs')
 subdir('gst')
+subdir('sys')
